@@ -1,0 +1,279 @@
+package etmo.metaheuristics.nsgaII;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+
+import etmo.util.comparators.LocationComparator;
+import etmo.core.Algorithm;
+import etmo.core.Operator;
+import etmo.core.ProblemSet;
+import etmo.core.Solution;
+import etmo.core.SolutionSet;
+
+
+import etmo.operators.crossover.CrossoverFactory;
+import etmo.operators.mutation.MutationFactory;
+import etmo.operators.selection.SelectionFactory;
+import etmo.problems.benchmarks_ETMO.*;
+import etmo.problems.benchmarks_LSMOP.*;
+import etmo.problems.benchmarks_ManytaskMOP.MATP1;
+import etmo.problems.benchmarks_ManytaskMOP.MATP10;
+import etmo.problems.benchmarks_ManytaskMOP.MATP2;
+import etmo.problems.benchmarks_ManytaskMOP.MATP3;
+import etmo.problems.benchmarks_ManytaskMOP.MATP4;
+import etmo.problems.benchmarks_ManytaskMOP.MATP5;
+import etmo.problems.benchmarks_ManytaskMOP.MATP6;
+import etmo.problems.benchmarks_ManytaskMOP.MATP7;
+import etmo.problems.benchmarks_ManytaskMOP.MATP8;
+import etmo.problems.benchmarks_ManytaskMOP.MATP9;
+import etmo.problems.benchmarks_MultiTaskMOP.mtmop_CEC2017.*;
+import etmo.problems.benchmarks_MultiTaskMOP.mtmop_CEC2019.*;
+import etmo.qualityIndicator.QualityIndicator;
+import etmo.util.JMException;
+
+public class NSGA_New_main {
+	public static void main(String args[]) throws IOException, JMException, ClassNotFoundException {
+		ProblemSet problemSet; // The problem to solve
+		Algorithm algorithm; // The algorithm to use
+		Operator crossover; // Crossover operator
+		Operator mutation; // Mutation operator
+		Operator selection;
+		
+		HashMap parameters; // Operator parameters
+		
+		int totalPro=27;
+	    int pCase;
+	    for(pCase=18;pCase<totalPro;pCase++){
+	    	switch(pCase){
+	    	case 0:
+			    problemSet = CPLX1.getProblem();
+				break;
+			case 1:
+				problemSet = CPLX2.getProblem();    
+				break;
+			case 2:
+			    problemSet = CPLX3.getProblem();  
+				break;				
+			case 3:
+			    problemSet = CPLX4.getProblem();  
+				break;	
+			case 4:
+			    problemSet = CPLX5.getProblem();  
+				break;					
+			case 5:
+				problemSet = CPLX6.getProblem();    
+				break;	
+			case 6:
+			    problemSet = CPLX7.getProblem();    
+				break;		
+			case 7:
+			    problemSet = CPLX8.getProblem();
+				break;				
+			case 8:
+			    problemSet = CPLX9.getProblem(); 
+				break;	
+			case 9:
+			    problemSet = CPLX10.getProblem(); 
+				break;
+			case 10:
+			    problemSet = ETMOF17.getProblem();
+				break;
+			case 11:
+			    problemSet = ETMOF18.getProblem();
+				break;
+			case 12:
+			    problemSet = ETMOF19.getProblem();
+				break;
+			case 13:
+			    problemSet = ETMOF20.getProblem();
+				break;
+			case 14:
+			    problemSet = ETMOF21.getProblem();
+				break;
+			case 15:
+			    problemSet = ETMOF22.getProblem();
+				break;
+			case 16:
+			    problemSet = ETMOF23.getProblem();
+				break;
+			case 17:
+			    problemSet = ETMOF24.getProblem();
+				break;
+			case 18:
+			    problemSet = LSMOP1.getProblem();
+				break;
+			case 19:
+			    problemSet = LSMOP2.getProblem();
+				break;
+			case 20:
+			    problemSet = LSMOP3.getProblem();
+				break;
+			case 21:
+			    problemSet = LSMOP4.getProblem();
+				break;
+			case 22:
+			    problemSet = LSMOP5.getProblem();
+				break;
+			case 23:
+			    problemSet = LSMOP6.getProblem();
+				break;
+			case 24:
+			    problemSet = LSMOP7.getProblem();
+				break;
+			case 25:
+			    problemSet = LSMOP8.getProblem();
+				break;
+			case 26:
+			    problemSet = LSMOP9.getProblem();
+				break;
+			case 27:
+			    problemSet = CIHS.getProblem();
+				break;
+			case 28:
+			    problemSet = CILS.getProblem();
+				break;
+			case 29:
+			    problemSet = CIMS.getProblem();
+				break;
+			case 30:
+			    problemSet = NIHS.getProblem();
+				break;
+			case 31:
+			    problemSet = NILS.getProblem();
+				break;
+			case 32:
+			    problemSet = NIMS.getProblem();
+				break;
+			case 33:
+			    problemSet = PIHS.getProblem();
+				break;
+			case 34:
+			    problemSet = PILS.getProblem();
+				break;
+			case 35:
+			    problemSet = PIMS.getProblem();
+				break;
+			case 36:
+			    problemSet = MATP1.getProblem();
+				break;
+			case 37:
+			    problemSet = MATP2.getProblem();
+				break;
+			case 38:
+			    problemSet = MATP3.getProblem();
+				break;
+			case 39:
+			    problemSet = MATP4.getProblem();
+				break;
+			case 40:
+			    problemSet = MATP5.getProblem();
+				break;
+			case 41:
+			    problemSet = MATP6.getProblem();
+				break;
+			case 42:
+			    problemSet = MATP7.getProblem();
+				break;
+			case 43:
+			    problemSet = MATP8.getProblem();
+				break;
+			case 44:
+			    problemSet = MATP9.getProblem();
+				break;
+			case 45:
+			    problemSet = MATP10.getProblem();
+				break;
+			default:
+				problemSet = CIHS.getProblem();			
+			}
+	    	
+	    	int taskNumber = problemSet.size();
+			System.out.println("taskNumber = "+taskNumber);
+			String[] pf = new String[taskNumber];
+			for(int i=0;i<taskNumber;i++) {
+				pf[i] = "PF/StaticPF/" + problemSet.get(i).getHType() + "_" + problemSet.get(i).getNumberOfObjectives() + "D.pf";
+			}
+			
+			algorithm = new NSGAII_New(problemSet);
+			
+			algorithm.setInputParameter("populationSize",153*taskNumber);
+			algorithm.setInputParameter("maxEvaluations",153*taskNumber * 1000);
+
+			parameters = new HashMap();
+			parameters.put("probability", 0.9);
+			parameters.put("distributionIndex", 20.0);
+			crossover = CrossoverFactory.getCrossoverOperator("SBXCrossover", parameters);
+
+			// Mutation operator
+			parameters = new HashMap();
+			parameters.put("probability", 1.0 / problemSet.getMaxDimension());
+			parameters.put("distributionIndex", 20.0);
+			mutation = MutationFactory.getMutationOperator("PolynomialMutation", parameters);
+
+			// Selection Operator
+		    parameters = new HashMap() ; 
+		    parameters.put("comparator", new LocationComparator());
+		    selection = SelectionFactory.getSelectionOperator("BinaryTournament",
+					parameters);
+				
+			// Add the operators to the algorithm
+			algorithm.addOperator("crossover", crossover);
+			algorithm.addOperator("mutation", mutation);
+			algorithm.addOperator("selection", selection);
+			
+			DecimalFormat form = new DecimalFormat("#.####E0");
+			
+			System.out.println("RunID\t" + "IGD for "+problemSet.get(0).getName()+" to "+problemSet.get(taskNumber-1).getName());
+			
+			int times = 10;
+			long Execuion_time=0;
+			
+			double ave[] = new double[taskNumber];
+			for (int t = 1; t <= times; t++) {	
+				long initTime = System.currentTimeMillis();
+				SolutionSet population = algorithm.execute();
+				Execuion_time += (System.currentTimeMillis() - initTime);
+				SolutionSet[] resPopulation = new SolutionSet[problemSet.size()];
+				for (int i = 0; i < problemSet.size(); i++)
+					resPopulation[i] = new SolutionSet();
+
+				for (int i = 0; i < population.size(); i++) {
+					Solution sol = population.get(i);
+
+					int pid = sol.getSkillFactor();
+
+					int start = problemSet.get(pid).getStartObjPos();
+					int end = problemSet.get(pid).getEndObjPos();
+
+					Solution newSolution = new Solution(end - start + 1);
+
+					for (int k = start; k <= end; k++)
+						newSolution.setObjective(k - start, sol.getObjective(k));
+
+					resPopulation[pid].add(newSolution);
+				}
+				
+				double igd;
+				System.out.print(t + "\t");
+				for(int i=0;i<taskNumber;i++){
+					QualityIndicator indicator = new QualityIndicator(problemSet.get(i), pf[i]);
+					if(resPopulation[i].size()==0)
+						continue;
+					resPopulation[i].printObjectivesToFile("NSGAII_"+problemSet.get(i).getNumberOfObjectives()+"Obj_"+
+							problemSet.get(i).getName()+ "_" + problemSet.get(i).getNumberOfVariables() + "D_run"+t+".txt");
+					igd =  indicator.getIGD(resPopulation[i]);
+					//System.out.print(form.format(igd) + "\t" );
+					ave[i] += igd;
+				}
+				//System.out.println("");		
+			}
+			    			
+			System.out.println();
+			System.out.println("Average Runtime for " + "LSMOP" + (pCase-17) + ": " + form.format(Execuion_time / times));
+			//for(int i=0;i<taskNumber;i++)		
+				//System.out.println("Average IGD for " + problemSet.get(i).getName()+ ": " + form.format(ave[i] / times));
+	    }
+	}
+}
