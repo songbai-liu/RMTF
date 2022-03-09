@@ -18,3 +18,19 @@ the error function, the activation function, the regularization, and the structu
 Regarding the RMTF7, it is defined as a 2-task portfolio optimization problem on different datasets, 
 where each task is a 2-objective LMOP that aims to find the portfo-lio of instruments having the 
 largest expected return and the lowest risk.
+
+# DRNEA: An evolutionary algorithm via discriminative reconstruction network (DRN).
+Evolutionary transfer optimization (ETO) has been becoming a hot research topic in the field of 
+evolutionary computation, which is based on the fact that knowledge learning and transfer across 
+the related optimization exercises can improve the effi-ciency of others. However, rare studies 
+employ ETO to solve large-scale multiobjective optimization problems (LMOPs). To fill this 
+research gap, this paper proposes a new multitasking ETO algorithm via a powerful transfer 
+learning model to simul-taneously solve multiple LMOPs. In particular, inspired by adversarial 
+domain adaptation in transfer learning, a discrimi-native reconstruction network (DRN) model 
+(containing an encoder, a decoder, and a classifier) is created for each LMOP. At each generation, 
+the DRN is trained by the currently ob-tained nondominated solutions for all LMOPs via backpropaga-tion 
+with gradient descent. With this well-trained DRN model, the proposed algorithm can: 
+(1) transfer the solutions of source LMOPs directly to the target LMOP for assisting its optimization, 
+(2) evaluate the correlation between the source and target LMOPs to control the transfer of solutions, 
+(3) learn a dimensional-reduced Pareto-optimal subspace of the target LMOP to improve the efficiency 
+of transfer optimization in the large-scale search space.
